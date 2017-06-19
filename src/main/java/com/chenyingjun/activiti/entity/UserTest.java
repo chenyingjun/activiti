@@ -17,4 +17,7 @@ public class UserTest extends BaseEntity{
 
     /** 用户名 */
     private String username;
+
+    /** 状态值，用于activiti测试 */
+    private String status;
 }
