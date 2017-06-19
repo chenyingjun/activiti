@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ImportResource;
  * @version 2017年05月08日 chenyingjun
  */
 @SpringBootApplication
-@ImportResource(value = { "classpath:applicationContext*.xml" })
+@ImportResource(value = { "classpath:applicationContext.xml" })
 public class Application {
 
 	public static void main(String[] args) {

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-4.2.xsd ">
+
+	<import resource="applicationContext-dao.xml" />
+
+	<!-- 加载activiti引擎 -->
+	<bean id="activitiTransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource" />
+
+	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+		<property name="dataSource" ref="dataSource" />
+		<property name="transactionManager" ref="activitiTransactionManager" />
+		<property name="databaseSchemaUpdate" value="false" />
+		<property name="dbIdentityUsed" value="false" />
+		<property name="jobExecutorActivate" value="false" />
+	</bean>
+
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+
+	<!-- activiti的各种服务接口 -->
+	<bean id="repositoryService" factory-bean="processEngine"
+		factory-method="getRepositoryService" />
+
+	<bean id="runtimeService" factory-bean="processEngine"
+		factory-method="getRuntimeService" />
+
+	<bean id="formService" factory-bean="processEngine"
+		factory-method="getFormService" />
+
+	<bean id="identityService" factory-bean="processEngine"
+		factory-method="getIdentityService" />
+
+	<bean id="taskService" factory-bean="processEngine"
+		factory-method="getTaskService" />
+
+	<bean id="historyService" factory-bean="processEngine"
+		factory-method="getHistoryService" />
+
+	<bean id="managementService" factory-bean="processEngine"
+		factory-method="getManagementService" />
+		
+</beans>
