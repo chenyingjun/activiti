@@ -3,13 +3,20 @@
   <process id="userTestProcess" isClosed="false" isExecutable="true" processType="None">
     <startEvent id="_2" name="StartEvent"/>
     <endEvent id="_3" name="EndEvent"/>
-    <userTask activiti:exclusive="true" id="_4" name="user1"/>
+    <userTask activiti:async="false" activiti:exclusive="true" id="_4" name="user1"/>
     <userTask activiti:exclusive="true" id="_5" name="user3"/>
     <userTask activiti:exclusive="true" id="_6" name="user2"/>
     <sequenceFlow id="_7" name="flow1" sourceRef="_2" targetRef="_4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flow == "1"}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_8" name="flow2" sourceRef="_4" targetRef="_6">
+      <extensionElements>
+        <activiti:executionListener class="com.chenyingjun.activiti.listener.TestExecutionListener" event="start">
+          <activiti:field name="flow">
+            <activiti:string>2</activiti:string>
+          </activiti:field>
+        </activiti:executionListener>
+      </extensionElements>
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flow == "2"}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_9" name="flow3" sourceRef="_4" targetRef="_5">
@@ -18,7 +25,7 @@
     <sequenceFlow id="_10" name="flow4" sourceRef="_6" targetRef="_5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flow == "4"}]]></conditionExpression>
     </sequenceFlow>
-    <userTask activiti:exclusive="true" id="_13" name="user4"/>
+    <userTask activiti:async="false" activiti:exclusive="true" id="_13" name="user4"/>
     <sequenceFlow id="_14" name="flow6" sourceRef="_13" targetRef="_4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flow == "6"}]]></conditionExpression>
     </sequenceFlow>
